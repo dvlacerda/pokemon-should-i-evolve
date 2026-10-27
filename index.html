@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Should I evolve it?</title>
+  <meta name="description" content="Compare a Pokémon with its evolutions stat by stat and get a recommendation based on what you care about.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#decision">Skip to the recommendation</a>
+  <header class="top">
+    <div class="wrap">
+      <h1>Should I evolve it?</h1>
+      <p class="lede">Pick a Pokémon. You'll see it next to every Pokémon it can evolve into, stat by stat,
+        and get a recommendation weighted by what you want from it.</p>
+      <div class="finder" role="search">
+        <label for="search">Pokémon</label>
+        <div class="finder-row">
+          <div class="combo">
+            <input id="search" type="text" autocomplete="off" spellcheck="false"
+                   placeholder="Type a name or number, e.g. eevee or 133"
+                   role="combobox" aria-expanded="false" aria-controls="matches" aria-autocomplete="list">
+            <ul id="matches" role="listbox" hidden></ul>
+          </div>
+          <button id="random" type="button" class="ghost">Surprise me</button>
+        </div>
+        <p class="hint">Try one with a real trade-off: <a href="#scyther">Scyther</a>, <a href="#eevee">Eevee</a>,
+          <a href="#nincada">Nincada</a>, <a href="#doublade">Doublade</a>.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="decision" tabindex="-1">
+    <section id="empty" class="empty">
+      <p>Search for a Pokémon above to compare it with its evolutions.</p>
+    </section>
+
+    <section id="result" hidden>
+      <div class="matchup">
+        <figure class="mon" id="current"></figure>
+        <div class="verdict" id="verdict" aria-live="polite"></div>
+        <figure class="mon" id="evolved"></figure>
+      </div>
+
+      <div class="options" id="options" hidden>
+        <h2>It can evolve into more than one Pokémon</h2>
+        <p class="sub">Ranked by how well each option fits your priorities. Select one to compare.</p>
+        <div class="option-list" id="option-list" role="tablist"></div>
+      </div>
+
+      <div class="grid">
+        <section class="panel stats-panel">
+          <h2>Stat by stat</h2>
+          <table class="stats" id="stats">
+            <caption class="sr">Base stats before and after evolving</caption>
+            <thead><tr><th scope="col">Stat</th><th scope="col">Now</th><th scope="col" class="barcol">Change</th><th scope="col">After</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <dl class="facts" id="facts"></dl>
+        </section>
+
+        <section class="panel prefs" aria-labelledby="prefs-h">
+          <h2 id="prefs-h">What matters to you?</h2>
+          <fieldset>
+            <legend>How you'll use it</legend>
+            <div class="profiles" id="profiles"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Deal-breakers</legend>
+            <label class="check"><input type="checkbox" id="keepType"> Keep its current type</label>
+            <label class="check"><input type="checkbox" id="keepAbility"> Keep all of its current abilities</label>
+            <label class="check"><input type="checkbox" id="keepSmall"> I want it to stay small</label>
+          </fieldset>
+          <p class="note">The recommendation weights each base stat by the profile you choose and compares the
+            totals before and after. Ticking a deal-breaker overrides the stats.</p>
+        </section>
+      </div>
+
+      <section class="panel line" id="line-panel">
+        <h2>Its evolution family</h2>
+        <ol class="family" id="family"></ol>
+      </section>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Data: course dataset <code>pokemon.csv</code> (811 entries, generations 1–6). Sprites load from the public
+      <a href="https://github.com/PokeAPI/sprites">PokeAPI sprites repository</a> using each row's <code>url_image</code>.
+      The dataset has no move lists or evolution methods, so the advice is about stats, types, abilities and size only.
+      Pokémon and its characters are trademarks of Nintendo, Creatures Inc. and GAME FREAK; this is an unofficial student project.</p>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
